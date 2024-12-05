@@ -41,6 +41,9 @@ public:
 
 	void setData(std::vector<T>&);
 	void push_back(T&);
+	
+	// Added but didn't need it, left for so I could reference code in future.
+	int getSize();
 
 	RankOneTensorType<T> operator++(); // prefix overload
 	RankOneTensorType<T> operator++(int); // postfix overload
@@ -74,6 +77,11 @@ void RankOneTensorType<T>::setData(std::vector<T>& newData) {
 template<class  T>
 void RankOneTensorType<T>::push_back(T& value) {
 	data.push_back(value);
+}
+
+template<class T>
+int RankOneTensorType<T>::getSize() {
+	return data.size();
 }
 
 template<class T>

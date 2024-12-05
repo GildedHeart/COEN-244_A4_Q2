@@ -8,16 +8,21 @@ class IoTDataTensor :
 private:
     std::vector<std::string> iot_category;
     std::vector<RankOneTensorType<std::string>> iot_data;
+    const int attributeCount = 85;
 
 public:
     IoTDataTensor();
     ~IoTDataTensor() override {}
 
-    double getValue(const int,const int) const;
+    int getAttributeCount() const;
 
-    std::string getCategory(const int) const;
+    std::string getValue(int, int) const;
 
-   void loadData() override;
+    std::string getCategory(int) const;
+
+    void loadData() override;
+
+    size_t getDataRowCount() const;
 
 };
 

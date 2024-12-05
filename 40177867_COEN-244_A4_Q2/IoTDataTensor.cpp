@@ -5,18 +5,19 @@ IoTDataTensor::IoTDataTensor() {
     iot_data.resize(0);
 }
 
-double IoTDataTensor::getValue(const int row, const int col) const{
-    return std::stod(iot_data[row][col]);
+int IoTDataTensor::getAttributeCount() const { return attributeCount; }
+
+std::string IoTDataTensor::getValue(int row, int col) const{
+    return iot_data[row][col];
 }
 
-std::string IoTDataTensor::getCategory(const int col) const{
+std::string IoTDataTensor::getCategory(int col) const{
     return iot_category[col];
 }
 
 
 void IoTDataTensor::loadData() {
     int shardIndex = 0;
-    const int attributeCount = 85;
     
     std::string inputFilePath;
     std::string line;
@@ -39,7 +40,6 @@ void IoTDataTensor::loadData() {
                 iot_category.push_back(line);
             }
         }
-
         while (getline(inputFile, line)) {
             size_t startOfDataSet = line.find('[');
             size_t endOfDataSet = line.find(']');
@@ -47,13 +47,14 @@ void IoTDataTensor::loadData() {
             if (startOfDataSet != std::string::npos && endOfDataSet != std::string::npos) {
                 std::string token;
                 std::string dataLine = line.substr(startOfDataSet + 1, endOfDataSet - startOfDataSet - 1); 
-                std::vector<std::string> dataVector;
                 std::stringstream dataStream(dataLine);
+                std::vector<std::string> dataVector;
+                RankOneTensorType<std::string> dataTensor;
+
                 while(getline(dataStream, token, ',')){
                     dataVector.push_back(token);
                 }
 
-                RankOneTensorType<std::string> dataTensor;
                 dataTensor.setData(dataVector);
                 iot_data.push_back(dataTensor);
             }
@@ -61,4 +62,8 @@ void IoTDataTensor::loadData() {
         inputFile.close();
         shardIndex++;
     }
+}
+
+size_t IoTDataTensor::getDataRowCount() const {
+    return iot_data.size();
 }
