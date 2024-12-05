@@ -27,7 +27,6 @@ void testTensorType() {
 	RankOneTensorType<double> dtensor2(2);
 	dtensor2.loadData();
 	std::cout << dtensor2;
-
 	std::cout << dtensor + dtensor2;
 	std::cout << dtensor[0] << "\n";
 }
@@ -36,10 +35,8 @@ void testIoTDataTensor() {
 	IoTDataTensor iot; 
 	try {
 		iot.loadData();
-		for (int i = 0; i < 85; i++) {
-			for(int j = 0; j < 5; j++)
-			std::cout << iot.getCategory(i) << " : [" << iot.getValue(j, i) << "] \n\n";
-		}
+		int row = 0; int col = 5;
+		std::cout << iot.getCategory(col) << " : [" << iot.getValue(row, col) << "] \n\n";
 	}
 	catch (std::runtime_error& e) { std::cerr << e.what() << std::endl; }
 }
