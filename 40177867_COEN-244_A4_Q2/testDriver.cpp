@@ -7,10 +7,13 @@
 
 void testTensorType();
 void testIoTDataTensor();
+void testIoTDataTensorV2(); // Had to rework test driver to get the output requested in the assignment guidelines. 
 
 int main() {
 	testTensorType();
 	testIoTDataTensor();
+	testIoTDataTensorV2();
+
 	return 0;
 }
 
@@ -32,9 +35,20 @@ void testTensorType() {
 	std::cout << dtensor[0] << "\n\n";
 }
 
-
-// Had to rework test driver to get the output requested in the assignment guidelines as the provided code wouldn't have worked. 
 void testIoTDataTensor() { 
+	IoTDataTensor iot; 
+	try { 
+		iot.loadData(); 
+		
+		int row = 0; 
+		int col = 5; 
+
+		std::cout << "\n" << iot.getCategory(col) << " : " << iot.getValue(row, col) << "\n\n";
+	} 
+	catch (std::runtime_error& e) { std::cerr << e.what() << std::endl; } 
+}
+
+void testIoTDataTensorV2() { 
 	IoTDataTensor iot; 
 	try {
 		iot.loadData();
@@ -52,7 +66,7 @@ void testIoTDataTensor() {
 			dataValues << "Data : " << "[";
 			for (size_t col = 0; col < iot.getAttributeCount(); col++) {
 				if (col != iot.getAttributeCount() - 1) {
-					dataValues << iot.getValue(row, col) << ", ";
+					dataValues << iot.getValue(row, col) << ",";
 				}
 				else {
 					dataValues << iot.getValue(row, col) << "]\n\n";
