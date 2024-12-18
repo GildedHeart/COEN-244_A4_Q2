@@ -15,7 +15,6 @@ std::string IoTDataTensor::getCategory(int col) const{
     return iot_category[col];
 }
 
-
 void IoTDataTensor::loadData() {
     int shardIndex = 0;
     

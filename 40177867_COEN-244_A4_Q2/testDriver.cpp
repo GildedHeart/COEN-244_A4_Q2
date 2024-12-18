@@ -5,6 +5,10 @@
 #include<string>
 #include<sstream>
 
+
+//Location of shards: D:\School test\shards
+
+
 void testTensorType();
 void testIoTDataTensor();
 void testIoTDataTensorV2(); // Had to rework test driver to get the output requested in the assignment guidelines. 
